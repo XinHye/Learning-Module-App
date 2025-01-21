@@ -1,0 +1,25 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
+class LeaderboardPage$1 extends JPanel {
+   LeaderboardPage$1(final LeaderboardPage var1) {
+      this.this$0 = var1;
+   }
+
+   protected void paintComponent(Graphics var1) {
+      super.paintComponent(var1);
+
+      try {
+         BufferedImage var2 = ImageIO.read(new File("2.jpg"));
+         var1.drawImage(var2, 0, 0, this.getWidth(), this.getHeight(), this);
+      } catch (IOException var3) {
+         var3.printStackTrace();
+      }
+
+   }
+}

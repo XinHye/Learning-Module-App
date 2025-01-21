@@ -1,0 +1,65 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.LayoutManager;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+public class LearningApp {
+   static JFrame frame = new JFrame("Main Menu");
+   JButton learnButton;
+   JButton quizButton;
+   JButton leaderboardButton;
+   JLabel infoLabel;
+   JPanel backgroundPanel;
+
+   public LearningApp() {
+      frame.setSize(600, 870);
+      frame.setDefaultCloseOperation(3);
+      frame.setResizable(false);
+      this.backgroundPanel = new LearningApp$1(this);
+      this.backgroundPanel.setLayout((LayoutManager)null);
+      frame.setContentPane(this.backgroundPanel);
+      this.infoLabel = new JLabel("Main Menu");
+      this.infoLabel.setBounds(0, 60, 600, 30);
+      this.infoLabel.setHorizontalAlignment(0);
+      this.infoLabel.setForeground(new Color(167, 194, 204));
+      Font var1 = this.infoLabel.getFont();
+      this.infoLabel.setFont(new Font(var1.getName(), 1, 30));
+      frame.add(this.infoLabel);
+      this.infoLabel = new JLabel("Choose an option:");
+      this.infoLabel.setBounds(0, 110, 600, 30);
+      this.infoLabel.setHorizontalAlignment(0);
+      this.infoLabel.setForeground(new Color(240, 243, 255));
+      frame.add(this.infoLabel);
+      this.learnButton = new JButton("Learn");
+      this.learnButton.setBounds(175, 170, 250, 50);
+      Font var2 = new Font(this.learnButton.getFont().getName(), this.learnButton.getFont().getStyle(), 17);
+      this.learnButton.setFont(var2);
+      this.learnButton.addActionListener(new LearningApp$2(this));
+      frame.add(this.learnButton);
+      this.quizButton = new JButton("Quiz");
+      this.quizButton.setBounds(175, 230, 250, 50);
+      Font var3 = new Font(this.quizButton.getFont().getName(), this.quizButton.getFont().getStyle(), 17);
+      this.quizButton.setFont(var3);
+      this.quizButton.addActionListener(new LearningApp$3(this));
+      frame.add(this.quizButton);
+      frame.setVisible(true);
+   }
+
+   public void openLearningSection() {
+      SwingUtilities.invokeLater(new LearningApp$4(this));
+   }
+
+   public void startQuiz() {
+      frame.dispose();
+      SwingUtilities.invokeLater(new LearningApp$5(this));
+   }
+
+   public static void main(String[] var0) {
+      SwingUtilities.invokeLater(new LearningApp$6());
+   }
+}

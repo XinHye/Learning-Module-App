@@ -1,0 +1,79 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.border.Border;
+
+class TextPage implements Page {
+   private String title;
+   private String subtitle;
+   private String content;
+
+   public TextPage(String var1, String var2, List<String> var3) {
+      this.title = var1;
+      this.subtitle = var2;
+      this.content = this.loadContentFromFiles(var3);
+   }
+
+   private String loadContentFromFiles(List<String> var1) {
+      StringBuilder var2 = new StringBuilder();
+      Iterator var3 = var1.iterator();
+
+      while(var3.hasNext()) {
+         String var4 = (String)var3.next();
+
+         try {
+            BufferedReader var5 = new BufferedReader(new FileReader(var4));
+
+            String var6;
+            try {
+               while((var6 = var5.readLine()) != null) {
+                  var2.append(var6).append("\n");
+               }
+            } catch (Throwable var9) {
+               try {
+                  var5.close();
+               } catch (Throwable var8) {
+                  var9.addSuppressed(var8);
+               }
+
+               throw var9;
+            }
+
+            var5.close();
+         } catch (IOException var10) {
+            var10.printStackTrace();
+         }
+      }
+
+      return var2.toString();
+   }
+
+   public String getTitle() {
+      return this.title;
+   }
+
+   public String getSubtitle() {
+      return this.subtitle;
+   }
+
+   public void displayContent(JPanel var1, Font var2) {
+      JTextPane var3 = new JTextPane();
+      var3.setEditable(false);
+      var3.setFont(var2);
+      var3.setText(this.content);
+      JPanel var4 = new JPanel(new BorderLayout());
+      var4.add(var3, "Center");
+      var4.setPreferredSize(new Dimension(300, 640));
+      var4.setAlignmentX(0.5F);
+      var4.setBorder((Border)null);
+      var1.add(var4);
+   }
+}

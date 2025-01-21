@@ -1,0 +1,73 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.image.ImageObserver;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.border.Border;
+
+public class ImagePage implements Page {
+   private String title;
+   private String subtitle;
+   private String content;
+   private ImageIcon image;
+
+   public ImagePage(String var1, String var2, String var3, ImageIcon var4) {
+      this.title = var1;
+      this.subtitle = var2;
+      this.content = var3;
+      this.image = this.resizeImageIcon(var4, 555, 592);
+   }
+
+   public String getTitle() {
+      return this.title;
+   }
+
+   public String getSubtitle() {
+      return this.subtitle;
+   }
+
+   public void displayContent(JPanel var1, Font var2) {
+      if (this.content != null && !this.content.isEmpty()) {
+         JTextPane var3 = new JTextPane();
+         var3.setEditable(false);
+         var3.setFont(var2);
+         var3.setText(this.content);
+         JPanel var4 = new JPanel(new BorderLayout());
+         var4.add(var3, "Center");
+         var4.setPreferredSize(new Dimension(550, 50));
+         var4.setAlignmentX(0.5F);
+         var4.setBorder((Border)null);
+         var1.add(var4);
+      }
+
+      JLabel var5 = new JLabel(this.image);
+      var5.setVerticalAlignment(0);
+      var5.setAlignmentX(0.5F);
+      var1.add(var5);
+      var1.add(Box.createVerticalStrut(100));
+   }
+
+   private ImageIcon resizeImageIcon(ImageIcon var1, int var2, int var3) {
+      Image var4 = var1.getImage();
+      int var5 = var4.getWidth((ImageObserver)null);
+      int var6 = var4.getHeight((ImageObserver)null);
+      if (var5 > var2) {
+         var6 = var2 * var6 / var5;
+         var5 = var2;
+      }
+
+      if (var6 > var3) {
+         var5 = var3 * var5 / var6;
+         var6 = var3;
+      }
+
+      Image var7 = var4.getScaledInstance(var5, var6, 4);
+      return new ImageIcon(var7);
+   }
+}

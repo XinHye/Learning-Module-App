@@ -1,0 +1,160 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.Timer;
+
+public class SAQuiz extends JFrame implements ActionListener {
+   private QuizListener listener;
+   private JFrame frame;
+   String[] questions = new String[]{"Preset sequence of \"random\" numbers.", "What are the two built-in Mathematical Functions in C?", "What is the function that returns the absolute value of x, where x is an integer?", "What is the syntax to get a random number between 1 and 6?", "The way to convert a variable from one data type to another data type is called _______.", "What is the function that returns a \"random\" number between 0 and RAND_MAX?"};
+   String[] answers = new String[]{"pseudorandom", "math.h, stdlib.h", "abs(x)", "1+(rand()%6)", "Type casting", "rand"};
+   int index = 0;
+   int correct_guesses = 0;
+   int total_questions;
+   int result;
+   int seconds;
+   long[] timeTaken;
+   JTextField textfield;
+   JTextArea textarea;
+   JTextField answerField;
+   JLabel feedbackLabel;
+   JButton submitButton;
+   JLabel time_label;
+   JLabel seconds_left;
+   Timer timer;
+
+   public SAQuiz(QuizListener var1, JFrame var2) {
+      this.total_questions = this.questions.length;
+      this.seconds = 15;
+      this.timeTaken = new long[this.total_questions];
+      this.textfield = new JTextField();
+      this.textarea = new JTextArea();
+      this.answerField = new JTextField();
+      this.feedbackLabel = new JLabel();
+      this.submitButton = new JButton("Submit");
+      this.time_label = new JLabel();
+      this.seconds_left = new JLabel();
+      this.timer = new Timer(1000, new SAQuiz$1(this));
+      this.listener = var1;
+      this.frame = var2;
+      this.initializeUI();
+      this.nextQuestion();
+   }
+
+   private void initializeUI() {
+      this.frame.getContentPane().removeAll();
+      this.frame.repaint();
+      this.textfield.setBounds(0, 0, 600, 50);
+      this.textfield.setBackground(new Color(33, 25, 81));
+      this.textfield.setForeground(new Color(21, 245, 186));
+      this.textfield.setFont(new Font("Ink Free", 1, 18));
+      this.textfield.setBorder(BorderFactory.createBevelBorder(1));
+      this.textfield.setHorizontalAlignment(0);
+      this.textfield.setEditable(false);
+      this.textarea.setBounds(0, 50, 600, 100);
+      this.textarea.setLineWrap(true);
+      this.textarea.setWrapStyleWord(true);
+      this.textarea.setBackground(new Color(33, 25, 81));
+      this.textarea.setForeground(new Color(240, 245, 186));
+      this.textarea.setFont(new Font("MV Boli", 0, 20));
+      this.textarea.setBorder(BorderFactory.createBevelBorder(1));
+      this.textarea.setEditable(false);
+      this.answerField.setBounds(150, 150, 350, 50);
+      this.answerField.setFont(new Font("MV Boli", 0, 20));
+      this.feedbackLabel.setBounds(150, 210, 350, 50);
+      this.feedbackLabel.setFont(new Font("MV Boli", 0, 20));
+      this.feedbackLabel.setHorizontalAlignment(0);
+      this.submitButton.setBounds(250, 270, 150, 50);
+      this.submitButton.setFont(new Font("MV Boli", 1, 20));
+      this.submitButton.setFocusable(false);
+      this.submitButton.addActionListener(this);
+      this.seconds_left.setBounds(250, 500, 100, 50);
+      this.seconds_left.setBackground(new Color(240, 243, 255));
+      this.seconds_left.setForeground(new Color(255, 0, 0));
+      this.seconds_left.setFont(new Font("Ink Free", 1, 20));
+      this.seconds_left.setBorder(BorderFactory.createBevelBorder(1));
+      this.seconds_left.setOpaque(true);
+      this.seconds_left.setHorizontalAlignment(0);
+      this.seconds_left.setText(String.valueOf(this.seconds));
+      this.time_label.setBounds(250, 470, 100, 25);
+      this.time_label.setBackground(new Color(240, 243, 255));
+      this.time_label.setForeground(new Color(255, 0, 0));
+      this.time_label.setFont(new Font("MV Boli", 0, 16));
+      this.time_label.setHorizontalAlignment(0);
+      this.time_label.setText("timer");
+      this.frame.add(this.time_label);
+      this.frame.add(this.seconds_left);
+      this.frame.add(this.answerField);
+      this.frame.add(this.feedbackLabel);
+      this.frame.add(this.submitButton);
+      this.frame.add(this.textarea);
+      this.frame.add(this.textfield);
+      this.timer.start();
+   }
+
+   public void nextQuestion() {
+      if (this.index >= this.total_questions) {
+         this.results();
+      } else {
+         this.textfield.setText("Question " + (this.index + 13));
+         this.textarea.setText(this.questions[this.index]);
+         this.feedbackLabel.setText("");
+         this.timer.start();
+      }
+
+   }
+
+   public void actionPerformed(ActionEvent var1) {
+      if (var1.getSource() == this.submitButton) {
+         String var2 = this.answerField.getText().trim();
+         if (var2.equalsIgnoreCase(this.answers[this.index])) {
+            ++this.correct_guesses;
+            this.feedbackLabel.setForeground(Color.GREEN);
+            this.feedbackLabel.setText("Correct!");
+         } else {
+            this.feedbackLabel.setForeground(Color.RED);
+            String var10001 = this.answers[this.index];
+            this.feedbackLabel.setText("Answer: " + var10001);
+         }
+
+         this.displayAnswer();
+      }
+
+   }
+
+   public void displayAnswer() {
+      this.timer.stop();
+      this.seconds = 15;
+      this.seconds_left.setText(String.valueOf(this.seconds));
+      Timer var1 = new Timer(2000, new SAQuiz$2(this));
+      var1.setRepeats(false);
+      var1.start();
+   }
+
+   public void results() {
+      this.frame.getContentPane().removeAll();
+      this.frame.repaint();
+      long var1 = 0L;
+      long[] var3 = this.timeTaken;
+      int var4 = var3.length;
+
+      for(int var5 = 0; var5 < var4; ++var5) {
+         long var6 = var3[var5];
+         var1 += var6;
+      }
+
+      this.frame.repaint();
+      if (this.listener != null) {
+         this.listener.onQuizComplete(this.correct_guesses, var1);
+      }
+
+   }
+}

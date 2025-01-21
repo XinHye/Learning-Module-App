@@ -1,0 +1,19 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class TrueFalse$2 implements ActionListener {
+   TrueFalse$2(final TrueFalse var1) {
+      this.this$0 = var1;
+   }
+
+   public void actionPerformed(ActionEvent var1) {
+      this.this$0.buttonT.setBackground((Color)null);
+      this.this$0.buttonF.setBackground((Color)null);
+      this.this$0.buttonT.setEnabled(true);
+      this.this$0.buttonF.setEnabled(true);
+      ++this.this$0.index;
+      this.this$0.nextQuestion();
+   }
+}

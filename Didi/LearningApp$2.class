@@ -1,0 +1,13 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class LearningApp$2 implements ActionListener {
+   LearningApp$2(final LearningApp var1) {
+      this.this$0 = var1;
+   }
+
+   public void actionPerformed(ActionEvent var1) {
+      this.this$0.openLearningSection();
+   }
+}

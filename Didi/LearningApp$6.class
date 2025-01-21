@@ -1,0 +1,9 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+class LearningApp$6 implements Runnable {
+   LearningApp$6() {
+   }
+
+   public void run() {
+      new LearningApp();
+   }
+}

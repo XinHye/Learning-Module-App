@@ -1,0 +1,61 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.LayoutManager;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+public class QuizModule implements QuizListener {
+   private JFrame frame = new JFrame();
+   private int currentQuiz = 0;
+   private int totalCorrectGuesses = 0;
+   private long totalTimeTaken = 0L;
+
+   public QuizModule() {
+      this.frame.setDefaultCloseOperation(3);
+      this.frame.setSize(600, 870);
+      this.frame.getContentPane().setBackground(new Color(33, 25, 81));
+      this.frame.setLayout((LayoutManager)null);
+      this.frame.setResizable(false);
+      Dimension var1 = Toolkit.getDefaultToolkit().getScreenSize();
+      int var2 = var1.width;
+      int var3 = var1.height;
+      int var4 = this.frame.getWidth();
+      int var5 = this.frame.getHeight();
+      int var6 = (var2 - var4) / 2;
+      int var7 = (var3 - var5) / 2;
+      this.frame.setLocation(var6, var7);
+      this.startNextQuiz();
+      this.frame.setVisible(true);
+   }
+
+   public void onQuizComplete(int var1, long var2) {
+      this.totalCorrectGuesses += var1;
+      this.totalTimeTaken += var2;
+      ++this.currentQuiz;
+      this.startNextQuiz();
+   }
+
+   private void startNextQuiz() {
+      this.frame.getContentPane().removeAll();
+      this.frame.revalidate();
+      this.frame.repaint();
+      if (this.currentQuiz == 0) {
+         new TrueFalse(this, this.frame);
+      } else if (this.currentQuiz == 1) {
+         new MCQQuiz(this, this.frame);
+      } else if (this.currentQuiz == 2) {
+         new SAQuiz(this, this.frame);
+      } else if (this.currentQuiz == 3) {
+         new Matching(this.totalCorrectGuesses, this.totalTimeTaken, this.frame);
+      }
+
+   }
+
+   public static void main(String[] var0) {
+      SwingUtilities.invokeLater(() -> {
+         new QuizModule();
+      });
+   }
+}

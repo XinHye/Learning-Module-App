@@ -1,0 +1,13 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class Matching$4 implements ActionListener {
+   Matching$4(final Matching var1) {
+      this.this$0 = var1;
+   }
+
+   public void actionPerformed(ActionEvent var1) {
+      Matching.displayLeaderboardByCompletionTime(this.this$0.frame);
+   }
+}

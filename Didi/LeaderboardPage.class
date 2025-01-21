@@ -1,0 +1,93 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.LayoutManager;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+public class LeaderboardPage {
+   static JFrame frame = new JFrame("LeaderBoard");
+   JButton HighestButton;
+   JButton FastestButton;
+   JButton BackButton;
+   JLabel infoLabel;
+   JPanel backgroundPanel;
+   static Leaderboard leaderboard = new Leaderboard();
+
+   public LeaderboardPage() {
+      frame.setSize(600, 870);
+      frame.setDefaultCloseOperation(3);
+      frame.setResizable(false);
+      this.backgroundPanel = new LeaderboardPage$1(this);
+      this.backgroundPanel.setLayout((LayoutManager)null);
+      frame.setContentPane(this.backgroundPanel);
+      this.infoLabel = new JLabel("Leaderboard");
+      this.infoLabel.setBounds(0, 60, 600, 30);
+      this.infoLabel.setHorizontalAlignment(0);
+      this.infoLabel.setForeground(new Color(0, 0, 0));
+      Font var1 = this.infoLabel.getFont();
+      this.infoLabel.setFont(new Font(var1.getName(), 1, 25));
+      frame.add(this.infoLabel);
+      this.infoLabel = new JLabel("Choose an option:");
+      this.infoLabel.setBounds(0, 100, 600, 30);
+      this.infoLabel.setHorizontalAlignment(0);
+      this.infoLabel.setForeground(new Color(240, 243, 255));
+      frame.add(this.infoLabel);
+      this.HighestButton = new JButton("View Highest Score");
+      this.HighestButton.setBounds(175, 150, 250, 50);
+      Font var2 = new Font(this.HighestButton.getFont().getName(), this.HighestButton.getFont().getStyle(), 17);
+      this.HighestButton.setFont(var2);
+      this.HighestButton.addActionListener(new LeaderboardPage$2(this));
+      frame.add(this.HighestButton);
+      this.FastestButton = new JButton("View Fastest to Complete");
+      this.FastestButton.setBounds(175, 210, 250, 50);
+      Font var3 = new Font(this.FastestButton.getFont().getName(), this.HighestButton.getFont().getStyle(), 17);
+      this.FastestButton.setFont(var3);
+      this.FastestButton.addActionListener(new LeaderboardPage$3(this));
+      frame.add(this.FastestButton);
+      this.BackButton = new JButton("Back to Main Menu");
+      this.BackButton.setBounds(200, 270, 200, 50);
+      Font var4 = new Font(this.BackButton.getFont().getName(), this.HighestButton.getFont().getStyle(), 17);
+      this.BackButton.setFont(var4);
+      this.BackButton.addActionListener(new LeaderboardPage$4(this));
+      frame.add(this.BackButton);
+      frame.setVisible(true);
+   }
+
+   private void displayLeaderboardByScore(JFrame var1) {
+      StringBuilder var2 = new StringBuilder();
+      List var3 = leaderboard.getLeaderboardByScore();
+
+      for(int var4 = 0; var4 < var3.size(); ++var4) {
+         var2.append(var4 + 1).append(". ").append((String)((Map.Entry)var3.get(var4)).getKey()).append(": ").append(((Map.Entry)var3.get(var4)).getValue()).append("\n");
+      }
+
+      JOptionPane.showMessageDialog(var1, var2.toString(), "Highest Score", -1);
+   }
+
+   private static void displayLeaderboardByCompletionTime(JFrame var0) {
+      StringBuilder var1 = new StringBuilder();
+      List var2 = leaderboard.getLeaderboardByCompletionTime();
+
+      for(int var3 = 0; var3 < var2.size(); ++var3) {
+         var1.append(var3 + 1).append(". ").append((String)((Map.Entry)var2.get(var3)).getKey()).append(": ").append(((Map.Entry)var2.get(var3)).getValue()).append(" seconds, Score: ").append(leaderboard.getScore((String)((Map.Entry)var2.get(var3)).getKey())).append("\n");
+      }
+
+      JOptionPane.showMessageDialog(var0, var1.toString(), "Fastest to Complete", -1);
+   }
+
+   public void openLearningApp() {
+      frame.dispose();
+      SwingUtilities.invokeLater(new LeaderboardPage$5(this));
+   }
+
+   public static void main(String[] var0) {
+      SwingUtilities.invokeLater(new LeaderboardPage$6());
+   }
+}

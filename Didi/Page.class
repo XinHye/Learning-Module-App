@@ -1,0 +1,11 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.Font;
+import javax.swing.JPanel;
+
+interface Page {
+   String getTitle();
+
+   String getSubtitle();
+
+   void displayContent(JPanel var1, Font var2);
+}

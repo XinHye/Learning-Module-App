@@ -1,0 +1,40 @@
+Increment & Decrement Operators
+
+- C has two special operators for incrementing or decrementing a variable by 1:
+  -> ++ (increment)
+  -> -- (decrement)
+
+Increment:
+Instead of writing
+	count = count + 1;
+
+We can more concisely write
+	count++;     //Postfix form of the increment operator
+	
+	OR
+
+	++count;    //Prefix form of the increment operator
+
+Decrement: 
+Instead of writing
+	count = count - 1;
+
+We can more concisely write
+	count--;     //Postfix form of the decrement operator
+	
+	OR
+
+	--count;    //Prefix form of the decrement operator
+
+<Example 1>
+	int count = 3;
+	printf("%d", count++);     //output: count = 3;
+	printf("%d", count);         //output: count = 4;
+
+<Example 2> 
+	int count = 3;
+	printf("%d", ++count);     //output: count = 4;
+	printf("%d", count);         //output: count = 4;
+
+   
+

@@ -1,0 +1,8 @@
+
+
+Unary Arithmetic Operators
+
+-> Require one operand
+-> Include unary plus (+), unary minus (-), increment (++), decrement (--)
+-> Unary plus (+) no effect on the result
+-> Unary minus (-) reverses the sign of the operand to which it applies (-ve value)

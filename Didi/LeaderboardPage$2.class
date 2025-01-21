@@ -1,0 +1,13 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class LeaderboardPage$2 implements ActionListener {
+   LeaderboardPage$2(final LeaderboardPage var1) {
+      this.this$0 = var1;
+   }
+
+   public void actionPerformed(ActionEvent var1) {
+      this.this$0.displayLeaderboardByScore(LeaderboardPage.frame);
+   }
+}

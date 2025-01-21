@@ -1,0 +1,247 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.Timer;
+
+public class MCQQuiz extends JFrame implements ActionListener {
+   private QuizListener listener;
+   private JFrame frame;
+   String[] questions = new String[]{"int count = 3;\n   printf(\"%d\", count++);\n   printf(\"%d\", count);\n   What is the output?", "What is the assignment operator for remainder?", "int count = 5;\n   printf(\"%d\", ++count);\n   printf(\"%d\", count);\n   What is the output?", "What happens when the higher data type is converted to a lower data type?", "Choose the correct syntax to do C-type casting or explicit conversion?", "The function prototype for the function rand is in what library?"};
+   String[][] options = new String[][]{{"count = 3, count = 4", "count = 3, count = 3", "count = 4, count = 3", "count = 4, count = 4"}, {"-=", "%=", "/=", "*="}, {"count = 3, count = 4", "count = 3, count = 3", "count = 4, count  4", "count = 4, count = 3"}, {"Nothing happens", "Data stays as higher data type", "Data will be truncated", "Data converted to lower data type"}, {"(data type) variable_name", "[data type] variable_name", "{data type} variable_name", "variable_name (data type)"}, {"math.h", "stdlib.h", "stdio.h", "string.h"}};
+   char[] answers = new char[]{'A', 'B', 'C', 'C', 'A', 'B'};
+   char guess;
+   char answer;
+   int index;
+   int correct_guesses = 0;
+   int total_questions;
+   int result;
+   int seconds;
+   long[] timeTaken;
+   JTextField textfield;
+   JTextArea textarea;
+   JButton buttonA;
+   JButton buttonB;
+   JButton buttonC;
+   JButton buttonD;
+   JLabel answer_labelA;
+   JLabel answer_labelB;
+   JLabel answer_labelC;
+   JLabel answer_labelD;
+   JLabel time_label;
+   JLabel seconds_left;
+   Timer timer;
+
+   public MCQQuiz(QuizListener var1, JFrame var2) {
+      this.total_questions = this.questions.length;
+      this.seconds = 15;
+      this.timeTaken = new long[this.total_questions];
+      this.textfield = new JTextField();
+      this.textarea = new JTextArea();
+      this.buttonA = new JButton();
+      this.buttonB = new JButton();
+      this.buttonC = new JButton();
+      this.buttonD = new JButton();
+      this.answer_labelA = new JLabel();
+      this.answer_labelB = new JLabel();
+      this.answer_labelC = new JLabel();
+      this.answer_labelD = new JLabel();
+      this.time_label = new JLabel();
+      this.seconds_left = new JLabel();
+      this.timer = new Timer(1000, new MCQQuiz$1(this));
+      this.listener = var1;
+      this.frame = var2;
+      this.initializeUI();
+      this.nextQuestion();
+   }
+
+   private void initializeUI() {
+      this.frame.getContentPane().removeAll();
+      this.frame.repaint();
+      this.textfield.setBounds(0, 0, 600, 50);
+      this.textfield.setBackground(new Color(33, 25, 81));
+      this.textfield.setForeground(new Color(21, 245, 186));
+      this.textfield.setFont(new Font("Ink Free", 1, 18));
+      this.textfield.setBorder(BorderFactory.createBevelBorder(1));
+      this.textfield.setHorizontalAlignment(0);
+      this.textfield.setEditable(false);
+      this.textarea.setBounds(0, 50, 600, 100);
+      this.textarea.setLineWrap(true);
+      this.textarea.setWrapStyleWord(true);
+      this.textarea.setBackground(new Color(33, 25, 81));
+      this.textarea.setForeground(new Color(21, 245, 186));
+      this.textarea.setFont(new Font("MV Boli", 1, 20));
+      this.textarea.setBorder(BorderFactory.createBevelBorder(1));
+      this.textarea.setEditable(false);
+      this.buttonA.setBounds(40, 150, 70, 70);
+      this.buttonA.setFont(new Font("MV Boli", 1, 20));
+      this.buttonA.setFocusable(false);
+      this.buttonA.addActionListener(this);
+      this.buttonA.setText("A");
+      this.buttonB.setBounds(40, 225, 70, 70);
+      this.buttonB.setFont(new Font("MV Boli", 1, 20));
+      this.buttonB.setFocusable(false);
+      this.buttonB.addActionListener(this);
+      this.buttonB.setText("B");
+      this.buttonC.setBounds(40, 300, 70, 70);
+      this.buttonC.setFont(new Font("MV Boli", 1, 20));
+      this.buttonC.setFocusable(false);
+      this.buttonC.addActionListener(this);
+      this.buttonC.setText("C");
+      this.buttonD.setBounds(40, 375, 70, 70);
+      this.buttonD.setFont(new Font("MV Boli", 1, 20));
+      this.buttonD.setFocusable(false);
+      this.buttonD.addActionListener(this);
+      this.buttonD.setText("D");
+      this.answer_labelA.setBounds(135, 135, 500, 100);
+      this.answer_labelA.setBackground(new Color(50, 50, 50));
+      this.answer_labelA.setForeground(new Color(25, 255, 0));
+      this.answer_labelA.setFont(new Font("MV Boli", 0, 20));
+      this.answer_labelB.setBounds(135, 210, 500, 100);
+      this.answer_labelB.setBackground(new Color(50, 50, 50));
+      this.answer_labelB.setForeground(new Color(25, 255, 0));
+      this.answer_labelB.setFont(new Font("MV Boli", 0, 20));
+      this.answer_labelC.setBounds(135, 285, 500, 100);
+      this.answer_labelC.setBackground(new Color(50, 50, 50));
+      this.answer_labelC.setForeground(new Color(25, 255, 0));
+      this.answer_labelC.setFont(new Font("MV Boli", 0, 20));
+      this.answer_labelD.setBounds(135, 360, 500, 100);
+      this.answer_labelD.setBackground(new Color(50, 50, 50));
+      this.answer_labelD.setForeground(new Color(25, 255, 0));
+      this.answer_labelD.setFont(new Font("MV Boli", 0, 20));
+      this.seconds_left.setBounds(250, 500, 100, 50);
+      this.seconds_left.setBackground(new Color(240, 243, 255));
+      this.seconds_left.setForeground(new Color(255, 0, 0));
+      this.seconds_left.setFont(new Font("Ink Free", 1, 24));
+      this.seconds_left.setBorder(BorderFactory.createBevelBorder(1));
+      this.seconds_left.setOpaque(true);
+      this.seconds_left.setHorizontalAlignment(0);
+      this.seconds_left.setText(String.valueOf(this.seconds));
+      this.time_label.setBounds(250, 470, 100, 25);
+      this.time_label.setBackground(new Color(240, 243, 255));
+      this.time_label.setForeground(new Color(255, 0, 0));
+      this.time_label.setFont(new Font("MV Boli", 0, 16));
+      this.time_label.setHorizontalAlignment(0);
+      this.time_label.setText("timer");
+      this.frame.add(this.time_label);
+      this.frame.add(this.seconds_left);
+      this.frame.add(this.answer_labelA);
+      this.frame.add(this.answer_labelB);
+      this.frame.add(this.answer_labelC);
+      this.frame.add(this.answer_labelD);
+      this.frame.add(this.buttonA);
+      this.frame.add(this.buttonB);
+      this.frame.add(this.buttonC);
+      this.frame.add(this.buttonD);
+      this.frame.add(this.textarea);
+      this.frame.add(this.textfield);
+   }
+
+   public void nextQuestion() {
+      if (this.index >= this.total_questions) {
+         this.results();
+      } else {
+         this.textfield.setText("Question " + (this.index + 7));
+         this.textarea.setText(this.questions[this.index]);
+         this.answer_labelA.setText(this.options[this.index][0]);
+         this.answer_labelB.setText(this.options[this.index][1]);
+         this.answer_labelC.setText(this.options[this.index][2]);
+         this.answer_labelD.setText(this.options[this.index][3]);
+         this.timer.start();
+      }
+
+   }
+
+   public void actionPerformed(ActionEvent var1) {
+      this.buttonA.setEnabled(false);
+      this.buttonB.setEnabled(false);
+      this.buttonC.setEnabled(false);
+      this.buttonD.setEnabled(false);
+      if (var1.getSource() == this.buttonA) {
+         this.answer = 'A';
+         if (this.answer == this.answers[this.index]) {
+            ++this.correct_guesses;
+         }
+      }
+
+      if (var1.getSource() == this.buttonB) {
+         this.answer = 'B';
+         if (this.answer == this.answers[this.index]) {
+            ++this.correct_guesses;
+         }
+      }
+
+      if (var1.getSource() == this.buttonC) {
+         this.answer = 'C';
+         if (this.answer == this.answers[this.index]) {
+            ++this.correct_guesses;
+         }
+      }
+
+      if (var1.getSource() == this.buttonD) {
+         this.answer = 'D';
+         if (this.answer == this.answers[this.index]) {
+            ++this.correct_guesses;
+         }
+      }
+
+      long var2 = (long)(15000 - this.seconds * 1000);
+      this.timeTaken[this.index] = var2;
+      this.displayAnswer();
+   }
+
+   public void displayAnswer() {
+      this.timer.stop();
+      this.seconds = 15;
+      this.seconds_left.setText(String.valueOf(this.seconds));
+      this.buttonA.setEnabled(false);
+      this.buttonB.setEnabled(false);
+      this.buttonC.setEnabled(false);
+      this.buttonD.setEnabled(false);
+      if (this.answers[this.index] != 'A') {
+         this.answer_labelA.setForeground(new Color(255, 0, 0));
+      }
+
+      if (this.answers[this.index] != 'B') {
+         this.answer_labelB.setForeground(new Color(255, 0, 0));
+      }
+
+      if (this.answers[this.index] != 'C') {
+         this.answer_labelC.setForeground(new Color(255, 0, 0));
+      }
+
+      if (this.answers[this.index] != 'D') {
+         this.answer_labelD.setForeground(new Color(255, 0, 0));
+      }
+
+      Timer var1 = new Timer(2000, new MCQQuiz$2(this));
+      var1.setRepeats(false);
+      var1.start();
+   }
+
+   public void results() {
+      this.frame.getContentPane().removeAll();
+      this.frame.repaint();
+      long var1 = 0L;
+      long[] var3 = this.timeTaken;
+      int var4 = var3.length;
+
+      for(int var5 = 0; var5 < var4; ++var5) {
+         long var6 = var3[var5];
+         var1 += var6;
+      }
+
+      this.frame.repaint();
+      if (this.listener != null) {
+         this.listener.onQuizComplete(this.correct_guesses, var1);
+      }
+
+   }
+}

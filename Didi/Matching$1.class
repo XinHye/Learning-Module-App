@@ -1,0 +1,22 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
+class Matching$1 implements ActionListener {
+   Matching$1(final Matching var1) {
+      this.this$0 = var1;
+   }
+
+   public void actionPerformed(ActionEvent var1) {
+      --this.this$0.seconds;
+      this.this$0.seconds_left.setText(String.valueOf(this.this$0.seconds));
+      if (this.this$0.seconds <= 0) {
+         this.this$0.checkAnswers();
+         Timer var2 = new Timer(2000, new Matching$1$1(this));
+         var2.setRepeats(false);
+         var2.start();
+      }
+
+   }
+}

@@ -1,0 +1,33 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class TrueFalse$1 implements ActionListener {
+   TrueFalse$1(final TrueFalse var1) {
+      this.this$0 = var1;
+   }
+
+   public void actionPerformed(ActionEvent var1) {
+      --this.this$0.seconds;
+      this.this$0.seconds_left.setText(String.valueOf(this.this$0.seconds));
+      if (this.this$0.seconds <= 0) {
+         this.this$0.buttonT.setEnabled(false);
+         this.this$0.buttonF.setEnabled(false);
+         if (this.this$0.answers[this.this$0.index] == 'T') {
+            this.this$0.buttonT.setBackground(Color.GREEN);
+         } else {
+            this.this$0.buttonF.setBackground(Color.GREEN);
+         }
+
+         this.this$0.buttonT.setOpaque(true);
+         this.this$0.buttonT.repaint();
+         this.this$0.buttonF.setOpaque(true);
+         this.this$0.buttonF.repaint();
+         long var2 = (long)(15000 - this.this$0.seconds * 1000);
+         this.this$0.timeTaken[this.this$0.index] = var2;
+         this.this$0.displayAnswer();
+      }
+
+   }
+}

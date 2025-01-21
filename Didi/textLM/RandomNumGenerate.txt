@@ -1,0 +1,15 @@
+
+Random Number Generation
+
+->> rand function
+    -> include<stdlib.h>
+    -> Returns a "random" number between 0 and RAND_MAX(at least 3267)
+       - i = rand();
+    -> Not really random in nature
+        - Preset sequence of "random" numbers
+        - Same sequence for every function call
+
+->> Scaling
+    -> To get a random number between 1 and nature
+        - 1 +(rand()%n)
+        - rand() % n returns a number between 0 and n-1

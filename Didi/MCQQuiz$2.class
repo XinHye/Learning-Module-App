@@ -1,0 +1,26 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class MCQQuiz$2 implements ActionListener {
+   MCQQuiz$2(final MCQQuiz var1) {
+      this.this$0 = var1;
+   }
+
+   public void actionPerformed(ActionEvent var1) {
+      this.this$0.answer_labelA.setForeground(new Color(25, 255, 0));
+      this.this$0.answer_labelB.setForeground(new Color(25, 255, 0));
+      this.this$0.answer_labelC.setForeground(new Color(25, 255, 0));
+      this.this$0.answer_labelD.setForeground(new Color(25, 255, 0));
+      this.this$0.answer = ' ';
+      this.this$0.seconds = 15;
+      this.this$0.seconds_left.setText(String.valueOf(this.this$0.seconds));
+      this.this$0.buttonA.setEnabled(true);
+      this.this$0.buttonB.setEnabled(true);
+      this.this$0.buttonC.setEnabled(true);
+      this.this$0.buttonD.setEnabled(true);
+      ++this.this$0.index;
+      this.this$0.nextQuestion();
+   }
+}

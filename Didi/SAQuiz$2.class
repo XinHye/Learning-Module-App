@@ -1,0 +1,16 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class SAQuiz$2 implements ActionListener {
+   SAQuiz$2(final SAQuiz var1) {
+      this.this$0 = var1;
+   }
+
+   public void actionPerformed(ActionEvent var1) {
+      this.this$0.answerField.setText("");
+      this.this$0.seconds_left.setText(String.valueOf(this.this$0.seconds));
+      ++this.this$0.index;
+      this.this$0.nextQuestion();
+   }
+}

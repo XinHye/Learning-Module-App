@@ -1,0 +1,179 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+
+public class LearningModule extends JFrame {
+   private Font titleFont;
+   private Font subtitleFont;
+   private Font contentFont;
+   private JPanel contentPanel;
+   private List<Page> pages;
+   private int currentPageIndex;
+   private JButton prevButton;
+   private JButton nextButton;
+   private JButton doneButton;
+
+   public LearningModule() {
+      this.setSize(600, 832);
+      this.setTitle("Introduction To Programming");
+      this.setDefaultCloseOperation(3);
+      this.setLocationRelativeTo((Component)null);
+      this.setLayout(new BorderLayout());
+      this.titleFont = new Font("Times New Roman", 1, 25);
+      this.subtitleFont = new Font("Times New Roman", 1, 20);
+      this.contentFont = new Font("Times New Roman", 0, 20);
+      this.contentPanel = new JPanel();
+      this.contentPanel.setLayout(new BoxLayout(this.contentPanel, 1));
+      this.contentPanel.setBackground(Color.decode("#F0F3FF"));
+      JScrollPane var1 = new JScrollPane(this.contentPanel);
+      var1.setVerticalScrollBarPolicy(22);
+      var1.setHorizontalScrollBarPolicy(31);
+      this.add(var1, "Center");
+      JPanel var2 = new JPanel();
+      this.prevButton = new JButton("Previous");
+      this.nextButton = new JButton("Next");
+      this.doneButton = new JButton("Done");
+      this.doneButton.setVisible(false);
+      var2.add(this.prevButton);
+      var2.add(this.nextButton);
+      var2.add(this.doneButton);
+      this.add(var2, "South");
+      this.prevButton.addActionListener((var1x) -> {
+         this.showPreviousPage();
+      });
+      this.nextButton.addActionListener((var1x) -> {
+         this.showNextPage();
+      });
+      this.doneButton.addActionListener((var1x) -> {
+         this.showCompletionMessage();
+      });
+      this.pages = new ArrayList();
+      this.currentPageIndex = 0;
+      this.setVisible(true);
+   }
+
+   public void addPage(Page var1) {
+      this.pages.add(var1);
+   }
+
+   public void setupPages() {
+      try {
+         ImageIcon var1 = new ImageIcon(this.getClass().getResource("/picLearningModule/AssignmentOperator.PNG"));
+         String var2 = "\nAssignment Operator = \n\n-> Assignment operators are used to assign value to a variable\n-> The left side operand of the assignment operator is a variable and right side operand of the assignment operator is a value\n-> The value on the right side must be of the same data-type of variable on the left side otherwise the compiler will raise an error\n-> = is not the same as == !!!\n\n";
+         ImagePage var3 = new ImagePage("Assignment Operator", "Assignment Operator =", var2, var1);
+         this.addPage(var3);
+         ArrayList var4 = new ArrayList();
+         var4.add(this.getClass().getResource("/textLM/BasicAO.txt").getPath());
+         this.addPage(new TextPage("Arithmetic Operations", "Basic Arithmetic Operators", var4));
+         ArrayList var5 = new ArrayList();
+         var5.add(this.getClass().getResource("/textLM/UnaryArithmeticOperators.txt").getPath());
+         this.addPage(new TextPage("Basic Arithmetic Operators", "Unary Arithmetic Operators", var5));
+         ImageIcon var6 = new ImageIcon(this.getClass().getResource("/picLearningModule/BinaryAo.PNG"));
+         String var7 = "\nBinary Arithmetic Operators\n\n-> Require two operands\n-> E.g., +, -, *, / and %\n-> Operands can be an integer or floating-point\n";
+         ImagePage var8 = new ImagePage("Basic Arithmetic Operators", "Binary Arithmetic Operators", var7, var6);
+         this.addPage(var8);
+         ArrayList var9 = new ArrayList();
+         var9.add(this.getClass().getResource("/textLM/Increment&DecrementOperators.txt").getPath());
+         this.addPage(new TextPage("Increment & Decrement Operators", "Explanation & Examples", var9));
+         ImageIcon var10 = new ImageIcon(this.getClass().getResource("/picLearningModule/CAO.PNG"));
+         String var11 = "\nCompound of Assignment Operators\n-> C supports compound assignment operators, which are obtained by combining some operators with the simple assignment operator =";
+         ImagePage var12 = new ImagePage("Compound Assignment Operators", "Examples:", var11, var10);
+         this.addPage(var12);
+         ImageIcon var13 = new ImageIcon(this.getClass().getResource("/picLearningModule/MathLibraryFunc.PNG"));
+         String var14 = "\nMathematical Library Functions\n-> Mathematical library functions are declared in standard header files\n-> The floating-point type function declarations are found in math.h header file\n   #include<math.h>\n-> The integer type mathematical functions are found in stdlib.h header file\n   #include<stdlib.h>\n";
+         ImagePage var15 = new ImagePage("Built-in Mathematical Functions in C", "#include<math.h>\n#include<stdlib.h>", var14, var13);
+         this.addPage(var15);
+         ArrayList var16 = new ArrayList();
+         var16.add(this.getClass().getResource("/textLM/RandomNumGenerate.txt").getPath());
+         this.addPage(new TextPage("Random Number Generation", (String)null, var16));
+         ImageIcon var17 = new ImageIcon(this.getClass().getResource("/picLearningModule/RollingDice.PNG"));
+         String var18 = "\n->> Rolling a Six-Sided Dice\n-> A dice-rolling program that stimulates a six-sided dice would require random generation of integers from 1 to 6\n-> Let's develop a program to stimulate 20 rolls of a six-sided die and print the value of each roll.\n-> We use the remainder operator (%) in conjunction with rand as follows\n   -> 1+rand() % 6\n  -> to produce integers in the range 1 to 6\n";
+         ImagePage var19 = new ImagePage("Random Number Generation", "How it works?", var18, var17);
+         this.addPage(var19);
+         ImageIcon var20 = new ImageIcon(this.getClass().getResource("/picLearningModule/Solution.PNG"));
+         ImagePage var21 = new ImagePage("Solution:", "Seeding Random Number Generation", (String)null, var20);
+         this.addPage(var21);
+      } catch (Exception var22) {
+         var22.printStackTrace();
+         JOptionPane.showMessageDialog(this, "Error loading content", "Error", 0);
+      }
+
+      this.showPage(0);
+   }
+
+   private void showPage(int var1) {
+      if (var1 >= 0 && var1 < this.pages.size()) {
+         this.contentPanel.removeAll();
+         Page var2 = (Page)this.pages.get(var1);
+         JPanel var3 = new JPanel();
+         var3.setLayout(new BoxLayout(var3, 1));
+         var3.setBackground(Color.decode("#15F5BA"));
+         JLabel var4 = new JLabel(var2.getTitle());
+         var4.setFont(this.titleFont);
+         var4.setAlignmentX(0.5F);
+         var4.setAlignmentY(0.5F);
+         var3.add(var4);
+         if (var2.getSubtitle() != null && !var2.getSubtitle().isEmpty()) {
+            JLabel var5 = new JLabel(var2.getSubtitle());
+            var5.setFont(this.subtitleFont);
+            var5.setAlignmentX(0.5F);
+            var3.add(var5);
+         }
+
+         var3.setMaximumSize(new Dimension(500, 200));
+         this.contentPanel.add(var3);
+         var2.displayContent(this.contentPanel, this.contentFont);
+         this.prevButton.setEnabled(this.currentPageIndex > 0);
+         this.nextButton.setEnabled(this.currentPageIndex < this.pages.size() - 1);
+         this.doneButton.setVisible(this.currentPageIndex == this.pages.size() - 1);
+         this.nextButton.setVisible(this.currentPageIndex != this.pages.size() - 1);
+         this.revalidate();
+         this.repaint();
+      }
+   }
+
+   private void showPreviousPage() {
+      if (this.currentPageIndex > 0) {
+         --this.currentPageIndex;
+         this.showPage(this.currentPageIndex);
+      }
+
+   }
+
+   private void showNextPage() {
+      if (this.currentPageIndex < this.pages.size() - 1) {
+         ++this.currentPageIndex;
+         this.showPage(this.currentPageIndex);
+      }
+
+   }
+
+   private void showCompletionMessage() {
+      int var1 = JOptionPane.showConfirmDialog(this, "Well Done! You have completed this topic!", "Message", -1);
+      if (var1 == 0) {
+         this.dispose();
+      }
+
+   }
+
+   public static void main(String[] var0) {
+      SwingUtilities.invokeLater(() -> {
+         LearningModule var0 = new LearningModule();
+         var0.setupPages();
+      });
+   }
+}

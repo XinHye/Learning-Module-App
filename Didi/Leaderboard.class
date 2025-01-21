@@ -1,0 +1,49 @@
+// Source code is decompiled from a .class file using FernFlower decompiler.
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Leaderboard {
+   private Map<String, Integer> scores = new HashMap();
+   private Map<String, Double> completionTimes = new HashMap();
+
+   public Leaderboard() {
+      this.initializePresetData();
+   }
+
+   public void updateScore(String var1, int var2, double var3) {
+      this.scores.put(var1, var2);
+      this.completionTimes.put(var1, var3);
+   }
+
+   public List<Map.Entry<String, Integer>> getLeaderboardByScore() {
+      ArrayList var1 = new ArrayList(this.scores.entrySet());
+      Collections.sort(var1, (var0, var1x) -> {
+         return ((Integer)var1x.getValue()).compareTo((Integer)var0.getValue());
+      });
+      return var1;
+   }
+
+   public List<Map.Entry<String, Double>> getLeaderboardByCompletionTime() {
+      ArrayList var1 = new ArrayList(this.completionTimes.entrySet());
+      Collections.sort(var1, (var1x, var2) -> {
+         double var3 = ((Integer)this.scores.getOrDefault(var1x.getKey(), 0)).doubleValue();
+         double var5 = ((Integer)this.scores.getOrDefault(var2.getKey(), 0)).doubleValue();
+         int var7 = Double.compare(var5, var3);
+         return var7 != 0 ? var7 : ((Double)var1x.getValue()).compareTo((Double)var2.getValue());
+      });
+      return var1;
+   }
+
+   public int getScore(String var1) {
+      return (Integer)this.scores.getOrDefault(var1, 0);
+   }
+
+   private void initializePresetData() {
+      this.updateScore("Dahlia", 100, 12.5);
+      this.updateScore("Lily", 16, 15.7);
+      this.updateScore("Tulip", 83, 14.3);
+   }
+}
